@@ -10,8 +10,11 @@
                 <div class="card mt-3">
                     <div class="card-body text-center">
                         <h2 class="h3 card-title text-center mt-2">ユーザー登録</h2>
+
+                        @include('erro_card_list')
+
                         <div class="card-text">
-                            <form method="POST" action="route{{ route('register') }}">
+                            <form method="POST" action="{{ route('register') }}">
                                 @csrf
                                 <div class="md-form">
                                     <label for="name">ユーザー名</label>
@@ -21,7 +24,7 @@
                                 </div>
                                 <div class="md-form">
                                     <label for="email">メールアドレス</label>
-                                    <input class="form-contol" tyape="text" id="email" name="email" required
+                                    <input class="form-control" tyape="text" id="email" name="email" required
                                         value="{{ old('email') }}">
                                 </div>
                                 <div class="md-form">
