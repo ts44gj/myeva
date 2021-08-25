@@ -3,30 +3,41 @@
 @section('title', '日記')
 
 @section('content')
-@include('nav')
-  <div class="container">
-    @foreach($articles as $article)
-      <div class="card mt-3">
-        <div class="card-body d-flex flex-row">
-          <i class="fas fa-user-circle fa-3x mr-1"></i>
-          <div>
-            <div class="font-weight-bold">
-              {{ $article->user->name }}
+    @include('nav')
+    <div class="container">
+        @foreach ($articles as $article)
+            <div class="card mt-3">
+                <div class="card-body d-flex flex-row">
+                    <i class="fas fa-user-circle fa-3x mr-1"></i>
+                    <div>
+                        <div class="font-weight-bold">
+                            {{ $article->user->name }}
+                        </div>
+                        <div class="font-weight-lighter">
+                            {{ $article->created_at->format('Y/m/d H:i') }}
+                        </div>
+                    </div>
+                    @if (Auth::id() === $article->user_id)
+                        <div class='ml-auto card-text'>
+                            <div class="dropdown">
+                                <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <button type="button" class="btn btn-link text-muted m-0 p-2">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    @endif
+                </div>
+                <div class="card-body pt-0 pb-2">
+                    <h3 class="h4 card-title">
+                        {{ $article->title }}
+                    </h3>
+                    <div class="card-text">
+                        {!! nl2br(e($article->body)) !!}
+                    </div>
+                </div>
             </div>
-            <div class="font-weight-lighter">
-              {{ $article->created_at->format('Y/m/d H:i') }}
-            </div>
-          </div>
-        </div>
-        <div class="card-body pt-0 pb-2">
-          <h3 class="h4 card-title">
-            {{ $article->title }}
-          </h3>
-          <div class="card-text">
-            {!! nl2br(e( $article->body )) !!}
-          </div>
-        </div>
-      </div>
-    @endforeach
-  </div>
+        @endforeach
+    </div>
 @endsection
